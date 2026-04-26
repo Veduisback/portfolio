@@ -5,41 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vedang | Portfolio</title>
 
-  <!-- Tailwind CDN (for GitHub Pages simplicity) -->
- <script>
-async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const chatBox = document.getElementById("chatBox");
-
-  const userText = input.value.trim();
-  if (!userText) return;
-
-  // Show user message
-  chatBox.innerHTML += `<div class="text-right text-purple-400">${userText}</div>`;
-  input.value = "";
-
-  try {
-    const response = await fetch("https://portfolio-backend-x599.onrender.com/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ message: userText }),
-    });
-
-    const data = await response.json();
-
-    console.log("Response:", data); // 👈 DEBUG
-
-    chatBox.innerHTML += `<div class="text-zinc-300">${data.reply}</div>`;
-  } catch (err) {
-    console.error(err);
-    chatBox.innerHTML += `<div class="text-red-400">Error connecting to server</div>`;
-  }
-
-  chatBox.scrollTop = chatBox.scrollHeight;
-}
-</script>
+  <!-- Tailwind (REQUIRED) -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     body {
