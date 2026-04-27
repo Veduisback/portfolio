@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,53 +24,42 @@
 
 <body class="text-white">
 
-<!-- HEADER -->
-<header class="sticky top-0 z-10 backdrop-blur-lg bg-black/40 border-b border-purple-900">
-  <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
-    <h1 class="text-xl font-bold text-purple-400">Vedang</h1>
+<!-- USER INFO -->
+<div class="text-right p-3">
+  <span id="userInfo" class="text-green-400 text-sm"></span>
+  <button onclick="logout()" class="ml-4 text-red-400 text-sm">Logout</button>
+</div>
 
-    <div class="flex items-center gap-4 text-sm">
-      <span id="userInfo" class="text-green-400"></span>
-      <button onclick="logout()" class="text-red-400">Logout</button>
-    </div>
+<!-- HEADER -->
+<header class="sticky top-0 bg-black/40 border-b border-purple-900">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between">
+    <h1 class="text-xl font-bold text-purple-400">Vedang</h1>
   </div>
 </header>
 
-<!-- HERO -->
-<section class="py-24 text-center px-4">
-  <h1 class="text-5xl sm:text-6xl font-bold mb-6">
-    Hi, I'm <span class="text-purple-400">Vedang</span>
-  </h1>
-
-  <p class="text-zinc-400 max-w-xl mx-auto mb-8">
-    CSE student building AI tools, full-stack apps, and scalable systems.
-  </p>
-</section>
-
 <!-- CHATBOT -->
-<section class="max-w-3xl mx-auto px-4 mb-16">
+<section class="max-w-3xl mx-auto px-4 mt-10">
   <div class="bg-black/40 border border-purple-900 rounded-2xl glow overflow-hidden">
 
-    <div class="p-3 border-b border-purple-900 text-sm flex justify-between">
+    <div class="p-3 border-b border-purple-900 flex justify-between text-sm">
       <span>Chat with my AI</span>
       <span class="text-green-400">Online</span>
     </div>
 
     <div id="chatBox" class="h-64 overflow-y-auto p-4 space-y-2">
-      <p class="text-zinc-400 text-center">Ask anything about me 👇</p>
+      <p class="text-zinc-400 text-center">Ask anything 👇</p>
     </div>
 
     <div class="flex p-3 gap-2 border-t border-purple-900">
       <input id="userInput"
-        class="flex-1 bg-black border border-purple-800 rounded-lg px-3 py-2 text-sm"
-        placeholder="Ask about skills, projects..."
+        class="flex-1 bg-black border border-purple-800 rounded-lg px-3 py-2"
+        placeholder="Ask something..."
       >
       <button onclick="sendMessage()"
         class="bg-purple-600 px-4 py-2 rounded-lg">
         Send
       </button>
     </div>
-
   </div>
 </section>
 
@@ -86,25 +74,24 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-// Auth check + show user
+// 🔐 Protect page + show user
 firebase.auth().onAuthStateChanged((user) => {
   if (!user) {
     window.location.href = "login.html";
   } else {
     document.getElementById("userInfo").innerText =
-      user.displayName;
+      "Logged in as: " + user.displayName;
   }
 });
 
+// Logout
 function logout() {
   firebase.auth().signOut().then(() => {
     window.location.href = "login.html";
   });
 }
-</script>
 
-<!-- CHATBOT -->
-<script>
+// Chat function
 async function sendMessage() {
   const input = document.getElementById("userInput");
   const chatBox = document.getElementById("chatBox");
@@ -118,16 +105,15 @@ async function sendMessage() {
   try {
     const response = await fetch("https://portfolio-backend-x599.onrender.com/chat", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: {"Content-Type": "application/json"},
       body: JSON.stringify({ message: userText }),
     });
 
     const data = await response.json();
+
     chatBox.innerHTML += `<div class="text-zinc-300">${data.reply}</div>`;
   } catch {
-    chatBox.innerHTML += `<div class="text-red-400">Server error</div>`;
+    chatBox.innerHTML += `<div class="text-red-400">Server sleeping... try again</div>`;
   }
 
   chatBox.scrollTop = chatBox.scrollHeight;
