@@ -1,25 +1,56 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vedang | Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vedang | AI Portfolio</title>
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
-  <style>
-    body {
-      background: radial-gradient(circle at top, #1a0b2e, #020617);
-    }
-    .glow {
-      box-shadow: 0 0 40px rgba(168, 85, 247, 0.2);
-    }
-  </style>
+<style>
+body {
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  overflow-x: hidden;
+}
+
+/* Glow effects */
+.glow {
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
+}
+
+.card {
+  backdrop-filter: blur(12px);
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+/* Neon text */
+.neon {
+  text-shadow: 0 0 8px #a855f7, 0 0 20px #9333ea;
+}
+
+/* Scrollbar */
+#chatBox::-webkit-scrollbar {
+  width: 6px;
+}
+#chatBox::-webkit-scrollbar-thumb {
+  background: #7c3aed;
+  border-radius: 10px;
+}
+
+/* Animation */
+.fade-in {
+  animation: fadeIn 0.4s ease-in;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+</style>
 </head>
 
 <body class="text-white">
@@ -27,43 +58,102 @@
 <!-- USER INFO -->
 <div class="text-right p-3">
   <span id="userInfo" class="text-green-400 text-sm"></span>
-  <button onclick="logout()" class="ml-4 text-red-400 text-sm">Logout</button>
+  <button onclick="logout()" class="ml-4 text-red-400 text-sm hover:underline">Logout</button>
 </div>
 
 <!-- HEADER -->
-<header class="sticky top-0 bg-black/40 border-b border-purple-900">
-  <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between">
-    <h1 class="text-xl font-bold text-purple-400">Vedang</h1>
+<header class="sticky top-0 bg-black/40 backdrop-blur border-b border-purple-900 z-50">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+    <h1 class="text-xl font-bold text-purple-400 neon">Vedang AI</h1>
+    <span class="text-xs text-purple-300">Next-Gen Portfolio Interface</span>
   </div>
 </header>
 
-<!-- CHATBOT -->
-<section class="max-w-3xl mx-auto px-4 mt-10">
-  <div class="bg-black/40 border border-purple-900 rounded-2xl glow overflow-hidden">
-
-    <div class="p-3 border-b border-purple-900 flex justify-between text-sm">
-      <span>Chat with my AI</span>
-      <span class="text-green-400">Online</span>
-    </div>
-
-    <div id="chatBox" class="h-64 overflow-y-auto p-4 space-y-2">
-      <p class="text-zinc-400 text-center">Ask anything 👇</p>
-    </div>
-
-    <div class="flex p-3 gap-2 border-t border-purple-900">
-      <input id="userInput"
-        class="flex-1 bg-black border border-purple-800 rounded-lg px-3 py-2"
-        placeholder="Ask something..."
-      >
-      <button onclick="sendMessage()"
-        class="bg-purple-600 px-4 py-2 rounded-lg">
-        Send
-      </button>
-    </div>
-  </div>
+<!-- HERO -->
+<section class="text-center mt-10">
+  <h2 class="text-4xl font-bold neon">Welcome to My AI Portfolio</h2>
+  <p class="text-zinc-400 mt-2">Ask my AI anything about my projects, skills, and achievements</p>
 </section>
 
-<!-- FIREBASE SCRIPT -->
+<!-- MAIN GRID -->
+<section class="max-w-6xl mx-auto px-4 mt-10 grid md:grid-cols-3 gap-6">
+
+  <!-- LEFT: PROJECTS -->
+  <div class="space-y-4">
+
+    <div class="card p-4 rounded-xl glow">
+      <h3 class="text-purple-400 font-bold mb-2">🚀 Projects</h3>
+
+      <div class="space-y-3 text-sm">
+
+        <div class="p-3 rounded-lg bg-black/40 hover:bg-purple-900/20 transition">
+          🎮 <b>Unity Game Project</b><br>
+          Built immersive gameplay mechanics using Unity engine.
+        </div>
+
+        <div class="p-3 rounded-lg bg-black/40 hover:bg-purple-900/20 transition">
+          🧾 <b>Tax Detection System</b><br>
+          AI-based system for analyzing and detecting tax anomalies.
+        </div>
+
+        <div class="p-3 rounded-lg bg-black/40 hover:bg-purple-900/20 transition">
+          🧭 <b>Marg Dristi</b><br>
+          Navigation system for visually impaired using mobile integration.
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card p-4 rounded-xl glow">
+      <h3 class="text-purple-400 font-bold mb-2">🏆 Achievements</h3>
+      <ul class="text-sm text-zinc-300 space-y-2">
+        <li>✨ JEE Mains: 92.5 Percentile</li>
+        <li>✨ MHT CET: 98.11 Percentile</li>
+        <li>✨ CSE @ Bangalore Institute of Technology</li>
+      </ul>
+    </div>
+
+    <div class="card p-4 rounded-xl glow">
+      <h3 class="text-purple-400 font-bold mb-2">💡 Hackathons</h3>
+      <p class="text-sm text-zinc-300">
+        Participated in multiple hackathons building real-world AI + software solutions under pressure.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- CENTER: CHAT -->
+  <div class="md:col-span-2">
+    <div class="card rounded-2xl glow overflow-hidden flex flex-col h-[500px]">
+
+      <!-- Chat Header -->
+      <div class="p-3 border-b border-purple-900 flex justify-between text-sm">
+        <span>🤖 AI Assistant</span>
+        <span class="text-green-400">● Online</span>
+      </div>
+
+      <!-- Chat Messages -->
+      <div id="chatBox" class="flex-1 overflow-y-auto p-4 space-y-3">
+        <p class="text-zinc-400 text-center">Start chatting 👇</p>
+      </div>
+
+      <!-- Input -->
+      <div class="flex p-3 gap-2 border-t border-purple-900">
+        <input id="userInput"
+          class="flex-1 bg-black border border-purple-800 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600"
+          placeholder="Ask about projects, skills..."
+        >
+        <button onclick="sendMessage()"
+          class="bg-purple-600 px-4 py-2 rounded-lg hover:bg-purple-700 transition">
+          Send
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyBE8lUmRhcVpC-jgG21s_rfmM2gEUx4z0s",
@@ -74,7 +164,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-// 🔐 Protect page + show user
+// Auth
 firebase.auth().onAuthStateChanged((user) => {
   if (!user) {
     window.location.href = "login.html";
@@ -84,14 +174,13 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 });
 
-// Logout
 function logout() {
   firebase.auth().signOut().then(() => {
     window.location.href = "login.html";
   });
 }
 
-// Chat function
+// Chat
 async function sendMessage() {
   const input = document.getElementById("userInput");
   const chatBox = document.getElementById("chatBox");
@@ -99,8 +188,16 @@ async function sendMessage() {
   const userText = input.value.trim();
   if (!userText) return;
 
-  chatBox.innerHTML += `<div class="text-right text-purple-400">${userText}</div>`;
+  chatBox.innerHTML += `
+    <div class="text-right fade-in">
+      <span class="bg-purple-600 px-3 py-2 rounded-lg inline-block">${userText}</span>
+    </div>`;
+
   input.value = "";
+
+  // Typing indicator
+  chatBox.innerHTML += `<div id="typing" class="text-zinc-400 text-sm">AI is typing...</div>`;
+  chatBox.scrollTop = chatBox.scrollHeight;
 
   try {
     const response = await fetch("https://portfolio-backend-x599.onrender.com/chat", {
@@ -111,8 +208,17 @@ async function sendMessage() {
 
     const data = await response.json();
 
-    chatBox.innerHTML += `<div class="text-zinc-300">${data.reply}</div>`;
+    document.getElementById("typing").remove();
+
+    chatBox.innerHTML += `
+      <div class="text-left fade-in">
+        <span class="bg-black border border-purple-800 px-3 py-2 rounded-lg inline-block">
+          ${data.reply}
+        </span>
+      </div>`;
+
   } catch {
+    document.getElementById("typing").remove();
     chatBox.innerHTML += `<div class="text-red-400">Server sleeping... try again</div>`;
   }
 
